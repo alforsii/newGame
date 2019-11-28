@@ -7,7 +7,7 @@ class Paddle {
       x: this.game.width / 2 - this.width / 2,
       y: this.game.height - this.height - 5,
     };
-    this.maxSpeed = 10;
+    this.maxSpeed = 50;
     this.speed = 0;
     this.id;
   }
@@ -18,17 +18,24 @@ class Paddle {
     this.game.ctx.fill();
   }
 
-  update(deltaTime) {
-    if (!deltaTime) return;
-    this.pos.x += 5 / deltaTime;
-  }
-
   moveLeft() {
-    this.speed = -this.maxSpeed;
-    this.pos.x += this.speed;
+    const leftId = setInterval(() => {
+      this.speed = -this.maxSpeed;
+      this.pos.x += this.speed;
+      if (this.pos.x + this.width / 2 < 0) {
+        clearInterval(leftId);
+        this.pos.x = 5;
+      }
+    }, 100);
   }
   moveRight() {
-    this.speed = this.maxSpeed;
-    this.pos.x += this.speed;
+    const rightId = setInterval(() => {
+      this.speed = this.maxSpeed;
+      this.pos.x += this.speed;
+      if (this.pos.x + this.width / 2 > 800) {
+        clearInterval(rightId);
+        this.pos.x = 800 - this.width - 5;
+      }
+    }, 100);
   }
 }
