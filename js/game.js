@@ -5,13 +5,13 @@ class Game {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.paddle = new Paddle(this);
-    new InputHandler(this);
   }
 
   gameLoop() {
     setInterval(() => {
       this.clear();
       this.paddle.drawPaddle();
+      this.paddle.keyListener();
     }, 1000 / 60);
   }
 

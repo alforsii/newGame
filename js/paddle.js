@@ -7,35 +7,47 @@ class Paddle {
       x: this.game.width / 2 - this.width / 2,
       y: this.game.height - this.height - 5,
     };
-    this.maxSpeed = 50;
-    this.speed = 0;
-    this.id;
+    this.vx = 0;
+    this.controller = { left: false, right: false };
   }
 
   drawPaddle() {
+    if (this.controller.left) {
+      this.vx -= 1;
+    }
+    if (this.controller.right) {
+      this.vx += 1;
+    }
+    this.pos.x += this.vx;
+    this.vx *= 0.9;
+
     this.game.ctx.fillStyle = '#0f0';
     this.game.ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
     this.game.ctx.fill();
   }
 
-  moveLeft() {
-    const leftId = setInterval(() => {
-      this.speed = -this.maxSpeed;
-      this.pos.x += this.speed;
-      if (this.pos.x + this.width / 2 < 0) {
-        clearInterval(leftId);
-        this.pos.x = 5;
+  keyListener() {
+    document.addEventListener('keydown', event => {
+      const key = event.keyCode;
+      const keyStatus = event.type === 'keydown' ? true : false;
+      event.preventDefault();
+      if (key === 37) {
+        this.controller.left = keyStatus;
       }
-    }, 100);
-  }
-  moveRight() {
-    const rightId = setInterval(() => {
-      this.speed = this.maxSpeed;
-      this.pos.x += this.speed;
-      if (this.pos.x + this.width / 2 > 800) {
-        clearInterval(rightId);
-        this.pos.x = 800 - this.width - 5;
+      if (key === 39) {
+        this.controller.right = keyStatus;
       }
-    }, 100);
+    });
+    document.addEventListener('keyup', event => {
+      const key = event.keyCode;
+      const keyStatus = event.type === 'keyup' ? false : true;
+      event.preventDefault();
+      if (key === 37) {
+        this.controller.left = keyStatus;
+      }
+      if (key === 39) {
+        this.controller.right = keyStatus;
+      }
+    });
   }
 }
