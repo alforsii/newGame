@@ -5,7 +5,7 @@ class Ball {
     this.y = this.game.height - 100;
     this.radius = 20;
     this.vx = 5;
-    this.vy = 2;
+    this.vy = 3;
   }
 
   drawBall() {
