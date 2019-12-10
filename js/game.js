@@ -29,12 +29,14 @@ class Game {
 
   collision() {
     let distance = this.getDistance();
+    //Collision with top of paddle and bottom of the ball
     if (
-      this.ball.y + this.ball.radius > this.paddle.pos.y &&
-      this.ball.x - this.ball.radius > this.paddle.pos.x &&
-      this.ball.x + this.ball.radius < this.paddle.pos.x + this.paddle.width
+      this.ball.y + this.ball.radius > this.paddle.pos.y && //bottomOfBall > paddleTop
+      this.ball.x - this.ball.radius < this.paddle.pos.x + this.paddle.width && //lestSideBall < rightSidePaddle
+      this.ball.x + this.ball.radius > this.paddle.pos.x //rightSideBall > leftSidePaddle
     )
       this.ball.vy *= -1;
+    // need to do 2 sides of paddle with ball
     // if (
     //   this.ball.x - this.ball.radius <
     //     this.paddle.pos.x + this.paddle.pos.width &&
