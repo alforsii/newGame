@@ -36,6 +36,18 @@ class Game {
       this.ball.x + this.ball.radius > this.paddle.pos.x //rightSideBall > leftSidePaddle
     )
       this.ball.vy *= -1;
+
+    if (
+      this.ball.x - this.ball.radius <
+      this.paddle.pos.x + this.paddle.width
+    ) {
+      vx *= 1;
+      vy *= 3;
+    }
+    if (this.ball.x + this.ball.radius > this.paddle.pos.x) {
+      vx *= -1;
+      vy *= 3;
+    }
     // need to do 2 sides of paddle with ball
     // if (
     //   this.ball.x - this.ball.radius <
